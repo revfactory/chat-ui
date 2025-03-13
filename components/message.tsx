@@ -33,7 +33,7 @@ const Message: React.FC<MessageProps> = ({ message, loading }) => {
             Assistant
           </div>
           <div className="flex">
-            <div className="mr-4 rounded-[18px] px-4 py-2 md:mr-24 text-white bg-black font-light">
+            <div className="mr-4 rounded-[18px] px-4 py-2 md:mr-24 text-black bg-white font-light">
               <div>
                 {loading ? (
                   <div className="min-h-4 flex justify-center items-center h-full">
