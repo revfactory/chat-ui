@@ -1,6 +1,7 @@
 import { MessageItem } from '@/lib/assistant'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import './message.css'
 
 interface MessageProps {
@@ -20,7 +21,7 @@ const Message: React.FC<MessageProps> = ({ message, loading }) => {
             <div className="ml-4 rounded-[18px] px-4 py-2 md:ml-24 bg-white text-zinc-900  font-light">
               <div>
                 <div>
-                  <ReactMarkdown>{message.content as string}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.content as string}</ReactMarkdown>
                 </div>
               </div>
             </div>
