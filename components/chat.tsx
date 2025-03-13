@@ -20,13 +20,15 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage, loading }) => {
     itemsEndRef.current?.scrollIntoView({ behavior: 'instant' })
   }
 
+  const [isComposing, setIsComposing] = useState(false);
+
   useEffect(() => {
     scrollToBottom()
   }, [items])
 
   return (
     <div className="flex justify-center items-center size-full">
-      <div className="flex grow flex-col h-full max-w-[750px] gap-2">
+      <div className="flex grow flex-col h-full gap-2">
         <div className="h-[90vh] overflow-y-scroll px-10">
           <div className="space-y-1 pt-4 ">
             {items.map((item, index) => (
@@ -65,11 +67,13 @@ const Chat: React.FC<ChatProps> = ({ items, onSendMessage, loading }) => {
                       className="m-0 resize-none border-0 focus:outline-none text-sm bg-transparent px-0 py-2 max-h-[20dvh]"
                       value={inputMessageText}
                       onChange={e => setinputMessageText(e.target.value)}
+                      onCompositionStart={() => setIsComposing(true)}
+                      onCompositionEnd={() => setIsComposing(false)}
                       onKeyDown={e => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                          e.preventDefault()
-                          onSendMessage(inputMessageText)
-                          setinputMessageText('')
+                        if (e.key === 'Enter' && !e.shiftKey && !isComposing) {
+                          e.preventDefault();
+                          onSendMessage(inputMessageText);
+                          setinputMessageText('');
                         }
                       }}
                     />
